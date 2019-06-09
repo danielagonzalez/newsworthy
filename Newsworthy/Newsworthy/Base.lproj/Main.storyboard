@@ -203,6 +203,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="Wgv-fK-k3z" id="aS6-C5-hxc"/>
                         <outlet property="collectionView" destination="OLY-iA-ZCm" id="I8x-Hw-aBv"/>
+                        <outlet property="mainView" destination="QS5-Rx-YEW" id="Vjn-dT-cLH"/>
                         <outlet property="preferenceSlider" destination="kSh-aW-eWm" id="a7z-gd-s9a"/>
                         <outlet property="tableView" destination="K0d-2A-scg" id="gGY-oc-DWS"/>
                     </connections>

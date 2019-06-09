@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import Cocoa
 
 class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var headlineLabel: UILabel!
@@ -59,6 +60,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var breaking = [String]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var mainView: UIView!
     
     var preference = 0.5
     
@@ -162,6 +164,11 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         cell.sourceLabel?.text = sources[indexPath.item]
 //        cell.imageLabel?.image = images[indexPath.item]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let url = URL(string: "https://google.com")!
+        UIApplication.shared.openURL(url)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

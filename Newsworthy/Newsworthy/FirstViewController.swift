@@ -17,11 +17,7 @@ class TopicTableViewCell: UITableViewCell {
     weak var delegate: TopicTableViewCellDelegate?
     
     @IBAction func likeButton(_ sender: Any) {
-        if buttonClicked == false {
-            buttonClicked = true
-        } else {
-            buttonClicked = false
-        }
+        buttonClicked = true
         delegate?.topicTableViewCellPressed()
     }
 }
@@ -76,13 +72,12 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                 if !tbc.selectedTopics.contains(topic) {
                     tbc.selectedTopics.append(topic)
                     print(tbc.selectedTopics)
-                }
-            } else {
-                if tbc.selectedTopics.contains(topic) {
+                } else if tbc.selectedTopics.contains(topic) {
                     let index = tbc.selectedTopics.firstIndex(of: topic)!
                     tbc.selectedTopics.remove(at: index)
                     print(tbc.selectedTopics)
                 }
+                cell.buttonClicked = false
             }
         }
         
@@ -93,6 +88,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+                
         // Do any additional setup after loading the view, typically from a nib.
     }
     
