@@ -10,4 +10,5 @@ import UIKit
 
 class CustomTabController: UITabBarController {
     var selectedTopics = [String]()
+    var preference = Float(0.5)
 }

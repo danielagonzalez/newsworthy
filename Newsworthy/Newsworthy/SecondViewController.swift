@@ -56,13 +56,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var headlines = [String]()
     var sources = [String]()
     var images = [UIImage]()
+    var urls = [String]()
     
     var breaking = [String]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var mainView: UIView!
-    
-    var preference = 0.5
     
     var nytArticles = Array<Dictionary<String,AnyObject>>()
     var apArticles = Array<Dictionary<String,AnyObject>>()
@@ -72,8 +71,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var nytImages = [UIImage]()
     var apImages = [UIImage]()
     var foxImages = [UIImage]()
-    
-    @IBOutlet weak var preferenceSlider: UISlider!
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -90,15 +88,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         loadData(url: nytURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.nytArticles = articles
-//                for i in self.nytArticles.indices {
-//                    self.nytImages.append(UIImage(named: "milo")!)
-//                    if self.nytArticles[i]["urlToImage"] != nil {
-//                        let imageURL = URL(string: self.nytArticles[i]["urlToImage"] as! String)!
-//                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-//                            self.nytImages[i] = img
-//                        })
-//                    }
-//                }
             }
         })
         
@@ -106,15 +95,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         loadData(url: apURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.apArticles = articles
-//                for i in self.apArticles.indices {
-//                    self.apImages.append(UIImage(named: "milo")!)
-//                    if self.apArticles[i]["urlToImage"] != nil {
-//                        let imageURL = URL(string: self.apArticles[i]["urlToImage"] as! String)!
-//                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-//                            self.apImages[i] = img
-//                        })
-//                    }
-//                }
             }
         })
         
@@ -122,15 +102,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         loadData(url: foxURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.foxArticles = articles
-//                for i in self.foxArticles.indices {
-//                    self.foxImages.append(UIImage(named: "milo")!)
-//                    if self.foxArticles[i]["urlToImage"] != nil {
-//                        let imageURL = URL(string: self.foxArticles[i]["urlToImage"] as! String)!
-//                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-//                            self.foxImages[i] = img
-//                        })
-//                    }
-//                }
             }
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
@@ -162,12 +133,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "articleCell", for: indexPath) as! ArticleTableViewCell
         cell.headlineLabel?.text = headlines[indexPath.item]
         cell.sourceLabel?.text = sources[indexPath.item]
-//        cell.imageLabel?.image = images[indexPath.item]
+        cell.imageLabel?.image = images[indexPath.item]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let url = URL(string: "https://google.com")!
+        let url = URL(string: urls[indexPath.item])!
         UIApplication.shared.openURL(url)
     }
     
@@ -185,51 +156,78 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         headlines = [String]()
         sources = [String]()
         images = [UIImage]()
-        preference = Double(preferenceSlider.value)
+        breaking = [String]()
         if let tbc = self.tabBarController as? CustomTabController {
             print(tbc.selectedTopics)
-            for article in self.nytArticles {
-                for topic in tbc.selectedTopics {
-                    for word in words[topic]! {
-                        let headline = article["title"]!
-                        if headline.lowercased(with: nil).contains(word) {
-                            headlines.append(article["title"] as! String)
-                            sources.append("The New York Times")
+            var index = 0
+            if tbc.preference <= 0.33 {
+                for article in self.nytArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The New York Times")
+                                urls.append(article["url"] as! String)
+                                images.append(UIImage(named: "milo")!)
+                                let imageURL = URL(string:article["urlToImage"] as! String)!
+                                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                    self.images[index] = img
+                                    index += 1
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
+                                })
+                            }
                         }
                     }
                 }
             }
-            //        for image in self.nytImages {
-            //            images.append(image)
-            //        }
-            for article in self.apArticles {
-                for topic in tbc.selectedTopics {
-                    for word in words[topic]! {
-                        let headline = article["title"]!
-                        if headline.lowercased(with: nil).contains(word) {
-                            headlines.append(article["title"] as! String)
-                            sources.append("The Associated Press")
+            if tbc.preference > 0.33 && tbc.preference <= 0.66 {
+                for article in self.apArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The Associated Press")
+                                urls.append(article["url"] as! String)
+                                images.append(UIImage(named: "milo")!)
+                                let imageURL = URL(string:article["urlToImage"] as! String)!
+                                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                    self.images[index] = img
+                                    index += 1
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
+                                })                            }
                         }
                     }
                 }
             }
-            //        for image in self.apImages {
-            //            images.append(image)
-            //        }
-            for article in self.foxArticles {
-                for topic in tbc.selectedTopics {
-                    for word in words[topic]! {
-                        let headline = article["title"]!
-                        if headline.lowercased(with: nil).contains(word) {
-                            headlines.append(article["title"] as! String)
-                            sources.append("Fox News")
+            if tbc.preference > 0.66 {
+                for article in self.foxArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("Fox News")
+                                urls.append(article["url"] as! String)
+                                images.append(UIImage(named: "milo")!)
+                                let imageURL = URL(string:article["urlToImage"] as! String)!
+                                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                    self.images[index] = img
+                                    index += 1
+                                    DispatchQueue.main.async {
+                                        self.tableView.reloadData()
+                                    }
+                                })
+                            }
                         }
                     }
                 }
             }
-            //        for image in self.foxImages {
-            //            images.append(image)
-            //        }
             for article in self.topStories {
                 breaking.append(article["title"] as! String)
             }

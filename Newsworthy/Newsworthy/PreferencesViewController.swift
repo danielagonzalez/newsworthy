@@ -8,6 +8,13 @@
 
 import UIKit
 
-class PreferencesViewController {
+class PreferencesViewController : UIViewController {
+    @IBOutlet weak var preferenceSlider: UISlider!
     
+    @IBAction func sliderChanged(_ sender: Any) {
+        if let tbc = self.tabBarController as? CustomTabController {
+            tbc.preference = preferenceSlider.value
+            print(tbc.preference)
+        }
+    }
 }
