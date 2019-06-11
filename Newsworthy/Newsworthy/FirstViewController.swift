@@ -15,10 +15,15 @@ protocol TopicTableViewCellDelegate: class {
 class TopicTableViewCell: UITableViewCell {
     var buttonClicked = false
     weak var delegate: TopicTableViewCellDelegate?
+    @IBOutlet weak var button: UIButton!
     
-    @IBAction func likeButton(_ sender: Any) {
+    @IBAction func likeButton(_ sender: UIButton) {
         buttonClicked = true
         delegate?.topicTableViewCellPressed()
+    }
+    
+    override func prepareForReuse() {
+        button.isSelected = false
     }
 }
 
@@ -56,6 +61,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         "Terrorism"
     ]
     
+    var buttons = Array(repeating: false, count: 29)
+    
     @IBOutlet weak var tableView: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,10 +86,27 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                 }
                 cell.buttonClicked = false
             }
+            if tbc.selectedTopics.contains(topic) {
+                cell.button.isSelected = true
+            } else {
+                cell.button.isSelected = false
+            }
         }
         
+//        cell.button.isSelected = buttons[indexPath.item]
+        
+//        print(buttons)
         return cell
     }
+    
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: IndexPath) {
+//        let cell = cell as! TopicTableViewCell
+//        if buttons[indexPath.item] == true {
+//            cell.button.isSelected = true
+//        } else {
+//            cell.button.isSelected = false
+//        }
+//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +118,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
     }
 }
 

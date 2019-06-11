@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="Iqg-Bm-qII">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch" translatesAutoresizingMaskIntoConstraints="NO" id="Iqg-Bm-qII">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -32,6 +32,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchscreen" width="1125" height="2436"/>
+        <image name="launch" width="325" height="706"/>
     </resources>
 </document>

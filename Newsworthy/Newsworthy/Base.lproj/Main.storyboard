@@ -30,16 +30,20 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIu-YW-RqZ">
-                                                    <rect key="frame" x="330" y="6" width="30" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AIu-YW-RqZ">
+                                                    <rect key="frame" x="338" y="15" width="16" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="♡"/>
+                                                    <state key="normal" title="♡" image="heart_white"/>
+                                                    <state key="selected" image="heart_black"/>
                                                     <connections>
                                                         <action selector="likeButton:" destination="6a3-vL-fNT" eventType="touchUpInside" id="L7S-nK-8Ga"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="button" destination="AIu-YW-RqZ" id="SPr-0x-O5w"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -317,6 +321,8 @@
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
+        <image name="heart_black" width="73" height="78"/>
+        <image name="heart_white" width="73" height="78"/>
         <image name="second" width="30" height="30"/>
     </resources>
 </document>

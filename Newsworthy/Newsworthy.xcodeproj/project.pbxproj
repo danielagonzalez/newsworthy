@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6083B5B622A0497000A2847B /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6083B5B522A0497000A2847B /* CustomTabBarController.swift */; };
 		6094D14822A98D9300913939 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6094D14722A98D9300913939 /* PreferencesViewController.swift */; };
+		60E5384022B03F4800EFF266 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 60E5383F22B03F4700EFF266 /* logo.png */; };
 		60F44745228C9F1500222910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F44744228C9F1500222910 /* AppDelegate.swift */; };
 		60F44747228C9F1500222910 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F44746228C9F1500222910 /* FirstViewController.swift */; };
 		60F44749228C9F1500222910 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F44748228C9F1500222910 /* SecondViewController.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		6083B5B522A0497000A2847B /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 		6094D14722A98D9300913939 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		60E5383F22B03F4700EFF266 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = logo.png; path = ../../../logo.png; sourceTree = "<group>"; };
 		60F44741228C9F1500222910 /* Newsworthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newsworthy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F44744228C9F1500222910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		60F44746228C9F1500222910 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				60F4474D228C9F1700222910 /* Assets.xcassets */,
 				60F4474F228C9F1700222910 /* LaunchScreen.storyboard */,
 				60F44752228C9F1700222910 /* Info.plist */,
+				60E5383F22B03F4700EFF266 /* logo.png */,
 			);
 			path = Newsworthy;
 			sourceTree = "<group>";
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60E5384022B03F4800EFF266 /* logo.png in Resources */,
 				60F44751228C9F1700222910 /* LaunchScreen.storyboard in Resources */,
 				60F4474E228C9F1700222910 /* Assets.xcassets in Resources */,
 				60F4474C228C9F1500222910 /* Main.storyboard in Resources */,
