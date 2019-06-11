@@ -56,12 +56,14 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     
     var headlines = [String]()
     var sources = [String]()
-    var images = [UIImage]()
+    var images = Dictionary<URL,UIImage>()
+    var image_urls = [URL]()
     var urls = [String]()
     
     var breaking_headlines = [String]()
-    var breaking_images = [UIImage]()
+    var breaking_images = Dictionary<URL,UIImage>()
     var breaking_urls = [String]()
+    var breaking_image_urls = [URL]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var mainView: UIView!
@@ -70,10 +72,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var apArticles = Array<Dictionary<String,AnyObject>>()
     var foxArticles = Array<Dictionary<String,AnyObject>>()
     var topStories = Array<Dictionary<String,AnyObject>>()
-    
-    var nytImages = [UIImage]()
-    var apImages = [UIImage]()
-    var foxImages = [UIImage]()
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -136,7 +134,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "articleCell", for: indexPath) as! ArticleTableViewCell
         cell.headlineLabel?.text = headlines[indexPath.item]
         cell.sourceLabel?.text = sources[indexPath.item]
-        cell.imageLabel?.image = images[indexPath.item]
+        cell.imageLabel?.image = images[image_urls[indexPath.item]]
         return cell
     }
     
@@ -152,7 +150,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "breakingNewsCell", for: indexPath) as! BreakingNewsCollectionViewCell
         cell.headlineLabel?.text = breaking_headlines[indexPath.item]
-        cell.breakingImage?.image = breaking_images[indexPath.item]
+        cell.breakingImage?.image = breaking_images[breaking_image_urls[indexPath.item]]
         return cell
     }
     
@@ -164,14 +162,14 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     @IBAction func submitButton(_ sender: Any) {
         headlines = [String]()
         sources = [String]()
-        images = [UIImage]()
+        images = Dictionary<URL,UIImage>()
         urls = [String]()
         breaking_headlines = [String]()
-        breaking_images = [UIImage]()
+        breaking_images = Dictionary<URL,UIImage>()
         breaking_urls = [String]()
         if let tbc = self.tabBarController as? CustomTabController {
             print(tbc.selectedTopics)
-            var index = 0
+//            var index = 0
             if tbc.preference <= 0.33 {
                 for article in self.nytArticles {
                     for topic in tbc.selectedTopics {
@@ -181,11 +179,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 headlines.append(article["title"] as! String)
                                 sources.append("The New York Times")
                                 urls.append(article["url"] as! String)
-                                images.append(UIImage(named: "milo")!)
                                 let imageURL = URL(string:article["urlToImage"] as! String)!
+                                image_urls.append(imageURL)
+                                images[imageURL] = UIImage(named: "newspaper")!
                                 self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                    self.images[index] = img
-                                    index += 1
+                                    self.images[imageURL] = img
+//                                    index += 1
                                     DispatchQueue.main.async {
                                         self.tableView.reloadData()
                                     }
@@ -204,11 +203,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Associated Press")
                                 urls.append(article["url"] as! String)
-                                images.append(UIImage(named: "milo")!)
                                 let imageURL = URL(string:article["urlToImage"] as! String)!
+                                image_urls.append(imageURL)
+                                images[imageURL] = UIImage(named: "newspaper")!
                                 self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                    self.images[index] = img
-                                    index += 1
+                                    self.images[imageURL] = img
+//                                    index += 1
                                     DispatchQueue.main.async {
                                         self.tableView.reloadData()
                                     }
@@ -226,11 +226,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 headlines.append(article["title"] as! String)
                                 sources.append("Fox News")
                                 urls.append(article["url"] as! String)
-                                images.append(UIImage(named: "milo")!)
                                 let imageURL = URL(string:article["urlToImage"] as! String)!
+                                image_urls.append(imageURL)
+                                images[imageURL] = UIImage(named: "newspaper")!
                                 self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                    self.images[index] = img
-                                    index += 1
+                                    self.images[imageURL] = img
+//                                    index += 1
                                     DispatchQueue.main.async {
                                         self.tableView.reloadData()
                                     }
@@ -240,15 +241,16 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     }
                 }
             }
-            var i = 0
+//            var i = 0
             for article in self.topStories {
                 breaking_headlines.append(article["title"] as! String)
                 breaking_urls.append(article["url"] as! String)
-                breaking_images.append(UIImage(named: "milo")!)
                 let imageURL = URL(string:article["urlToImage"] as! String)!
+                breaking_image_urls.append(imageURL)
+                breaking_images[imageURL] = UIImage(named: "newspaper")!
                 self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                    self.breaking_images[i] = img
-                    i += 1
+                    self.breaking_images[imageURL] = img
+//                    i += 1
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
@@ -291,11 +293,11 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     let image = UIImage(data: imageData)!
                     imageCompletionHandler(image, nil)
                 } else {
-                    imageCompletionHandler(UIImage(named: "milo")!, nil)
+                    imageCompletionHandler(UIImage(named: "newspaper")!, nil)
                 }
             } else {
                 print("Couldn't get response code")
-                imageCompletionHandler(UIImage(named: "milo")!, nil)
+                imageCompletionHandler(UIImage(named: "newspaper")!, nil)
             }
         })
         downloadTask.resume()
