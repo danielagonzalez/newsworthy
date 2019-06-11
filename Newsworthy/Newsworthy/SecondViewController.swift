@@ -17,6 +17,7 @@ class ArticleTableViewCell: UITableViewCell {
 
 class BreakingNewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var headlineLabel: UILabel!
+    @IBOutlet weak var breakingImage: UIImageView!
 }
 
 class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -25,32 +26,32 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         "Affirmative Action": ["affirmative action"],
         "Abortion" : ["abortion", "pro-life", "pro-choice", "reproductive rights", "roe v. wade"],
         "Border Wall" : ["wall", "border wall", "border", "the wall"],
-        "Campaign Finance" : ["campaign finance"],
+        "Campaign Finance" : ["campaign finance", "super pac"],
         "Climate Change" : ["climate", "environment", "environmental", "global warming"],
         "Death Penalty" : ["death penalty", "capital punishment"],
         "Drugs" : ["drugs"],
-        "Elections" : ["elections"],
+        "Elections" : ["election", "campaigning"],
         "Equal Pay" : ["equal pay"],
         "First Ammendment" : ["first ammendment", "freedom of speech", "freedom of expression", "free speech"],
         "Gun Control" : ["gun", "firearm", "control", "second ammendment", "shooting"],
         "Healthcare" : ["healthcare", "health insurance", "obamacare", "affordable care act"],
         "Housing" : ["housing"],
         "Immigration" : ["immigration", "immigrant", "asylum", "family separation"],
-        "Infrastructure" : ["infrastructure"],
-        "Israel" : ["israel"],
-        "Labor" : ["labor"],
+        "Infrastructure" : ["infrastructure", "highways", "bridges"],
+        "Israel" : ["israel", "netanyahu"],
+        "Labor" : ["labor", "unions", "on strike", "striking"],
         "LGBTQ" : ["lgbt", "gay", "lesbian", "bisexual", "homosexual", "religious freedom restoration act", "queer", "transgender", "pride"],
         "Mental Health" : ["mental health", "therapy", "anxiety", "depression"],
         "Net Neutrality" : ["net", "neutrality"],
-        "North Korea" : ["north korea"],
+        "North Korea" : ["north korea", "kim jong un"],
         "Prisons" : ["prisons"],
-        "Race" : ["race"],
+        "Race" : ["race", "racism", "white supremacy", "black lives matter", "#blacklivesmatter"],
         "Refugees" : ["refugees"],
         "Sexual Assault" : ["sexual assault", "sexual harassment", "rape"],
         "Space Exploration" : ["space exploration"],
         "Taxes" : ["taxes"],
         "Tech" : ["facebook", "twitter", "google", "amazon", "tech", "data privacy", "social media", "silicon valley"],
-        "Terrorism" : ["terrorism"]
+        "Terrorism" : ["terrorism", "isis"]
     ]
     
     var headlines = [String]()
@@ -58,7 +59,9 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var images = [UIImage]()
     var urls = [String]()
     
-    var breaking = [String]()
+    var breaking_headlines = [String]()
+    var breaking_images = [UIImage]()
+    var breaking_urls = [String]()
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var mainView: UIView!
@@ -143,20 +146,29 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-       return breaking.count
+       return breaking_headlines.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "breakingNewsCell", for: indexPath) as! BreakingNewsCollectionViewCell
-        cell.headlineLabel?.text = breaking[indexPath.item]
+        cell.headlineLabel?.text = breaking_headlines[indexPath.item]
+        cell.breakingImage?.image = breaking_images[indexPath.item]
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let url = URL(string: breaking_urls[indexPath.item])!
+        UIApplication.shared.openURL(url)
     }
     
     @IBAction func submitButton(_ sender: Any) {
         headlines = [String]()
         sources = [String]()
         images = [UIImage]()
-        breaking = [String]()
+        urls = [String]()
+        breaking_headlines = [String]()
+        breaking_images = [UIImage]()
+        breaking_urls = [String]()
         if let tbc = self.tabBarController as? CustomTabController {
             print(tbc.selectedTopics)
             var index = 0
@@ -228,8 +240,19 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     }
                 }
             }
+            var i = 0
             for article in self.topStories {
-                breaking.append(article["title"] as! String)
+                breaking_headlines.append(article["title"] as! String)
+                breaking_urls.append(article["url"] as! String)
+                breaking_images.append(UIImage(named: "milo")!)
+                let imageURL = URL(string:article["urlToImage"] as! String)!
+                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                    self.breaking_images[i] = img
+                    i += 1
+                    DispatchQueue.main.async {
+                        self.collectionView.reloadData()
+                    }
+                })
             }
             tableView.reloadData()
             collectionView.reloadData()
