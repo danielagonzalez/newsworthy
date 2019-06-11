@@ -112,10 +112,6 @@
                                     <outlet property="delegate" destination="QS5-Rx-YEW" id="I7m-Zn-Y79"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Wgv-fK-k3z">
-                                <rect key="frame" x="0.0" y="277" width="375" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="OLY-iA-ZCm">
                                 <rect key="frame" x="0.0" y="114" width="375" height="247"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -185,7 +181,7 @@
                     <navigationItem key="navigationItem" title="Digest" id="uz8-Rf-IMC">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="Uu3-ym-5co">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="o5D-0G-yq3">
-                                <rect key="frame" x="36" y="25" width="53" height="30"/>
+                                <rect key="frame" x="16" y="7" width="53" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Refresh"/>
                                 <connections>
@@ -195,7 +191,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="Wgv-fK-k3z" id="aS6-C5-hxc"/>
                         <outlet property="collectionView" destination="OLY-iA-ZCm" id="I8x-Hw-aBv"/>
                         <outlet property="mainView" destination="QS5-Rx-YEW" id="Vjn-dT-cLH"/>
                         <outlet property="tableView" destination="K0d-2A-scg" id="gGY-oc-DWS"/>

@@ -65,11 +65,23 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     var breaking_urls = [String]()
     var breaking_image_urls = [URL]()
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var mainView: UIView!
     
+    var bfArticles = Array<Dictionary<String,AnyObject>>()
+    var hpArticles = Array<Dictionary<String,AnyObject>>()
     var nytArticles = Array<Dictionary<String,AnyObject>>()
+    var wpArticles = Array<Dictionary<String,AnyObject>>()
+    var nwArticles = Array<Dictionary<String,AnyObject>>()
+    var poArticles = Array<Dictionary<String,AnyObject>>()
     var apArticles = Array<Dictionary<String,AnyObject>>()
+    var reArticles = Array<Dictionary<String,AnyObject>>()
+    var ftArticles = Array<Dictionary<String,AnyObject>>()
+    var abcArticles = Array<Dictionary<String,AnyObject>>()
+    var cbsArticles = Array<Dictionary<String,AnyObject>>()
+    var wsjArticles = Array<Dictionary<String,AnyObject>>()
+    var hillArticles = Array<Dictionary<String,AnyObject>>()
+    var teArticles = Array<Dictionary<String,AnyObject>>()
+    var nrArticles = Array<Dictionary<String,AnyObject>>()
     var foxArticles = Array<Dictionary<String,AnyObject>>()
     var topStories = Array<Dictionary<String,AnyObject>>()
 
@@ -83,12 +95,59 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.startAnimating()
+        let bfURL = "https://newsapi.org/v2/everything?sources=buzzfeed&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: bfURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.abcArticles = articles
+            }
+        })
+        
+        let hpURL = "https://newsapi.org/v2/everything?sources=the-huffington-post&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: bfURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.hpArticles = articles
+            }
+        })
+        
+        let abcURL = "https://newsapi.org/v2/everything?sources=abc-news&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: abcURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.abcArticles = articles
+            }
+        })
+        
+        let cbsURL = "https://newsapi.org/v2/everything?sources=cbs-news&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: cbsURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.cbsArticles = articles
+            }
+        })
+        
         let nytURL = "https://newsapi.org/v2/everything?sources=the-new-york-times&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
         loadData(url: nytURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.nytArticles = articles
+            }
+        })
+        
+        let wpURL = "https://newsapi.org/v2/everything?sources=the-washington-post&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: wpURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.wpArticles = articles
+            }
+        })
+        
+        let nwURL = "https://newsapi.org/v2/everything?sources=newsweek&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: nwURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.nwArticles = articles
+            }
+        })
+        
+        let poURL = "https://newsapi.org/v2/everything?sources=politico&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: poURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.poArticles = articles
             }
         })
         
@@ -99,13 +158,52 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
             }
         })
         
+        let teURL = "https://newsapi.org/v2/everything?sources=the-economist&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: teURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.teArticles = articles
+            }
+        })
+        
+        let reURL = "https://newsapi.org/v2/everything?sources=reuters&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: reURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.reArticles = articles
+            }
+        })
+        
+        let ftURL = "https://newsapi.org/v2/everything?sources=financial-times&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: ftURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.ftArticles = articles
+            }
+        })
+        
+        let wsjURL = "https://newsapi.org/v2/everything?sources=the-wall-street-journal&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: wsjURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.wsjArticles = articles
+            }
+        })
+        
+        let hillURL = "https://newsapi.org/v2/everything?sources=the-hill&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: hillURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.hillArticles = articles
+            }
+        })
+        
+        let nrURL = "https://newsapi.org/v2/everything?sources=national-review&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        loadData(url: nrURL, dataCompletionHandler: { articles, error in
+            if let articles = articles {
+                self.nrArticles = articles
+            }
+        })
+        
         let foxURL = "https://newsapi.org/v2/everything?sources=fox-news&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
         loadData(url: foxURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.foxArticles = articles
-            }
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
             }
         })
         
@@ -113,9 +211,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         loadData(url: topStoriesURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.topStories = articles
-            }
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
             }
         })
     }
@@ -169,8 +264,63 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         breaking_urls = [String]()
         if let tbc = self.tabBarController as? CustomTabController {
             print(tbc.selectedTopics)
-//            var index = 0
-            if tbc.preference <= 0.33 {
+            if tbc.preference <= 0.4 {
+                for article in self.bfArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("Buzzfeed")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.hpArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The Huffington Post")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if tbc.preference <= 0.6 {
                 for article in self.nytArticles {
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
@@ -179,22 +329,135 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 headlines.append(article["title"] as! String)
                                 sources.append("The New York Times")
                                 urls.append(article["url"] as! String)
-                                let imageURL = URL(string:article["urlToImage"] as! String)!
-                                image_urls.append(imageURL)
-                                images[imageURL] = UIImage(named: "newspaper")!
-                                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                    self.images[imageURL] = img
-//                                    index += 1
-                                    DispatchQueue.main.async {
-                                        self.tableView.reloadData()
-                                    }
-                                })
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.wpArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The Washington Post")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.nwArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("Newsweek")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.poArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("Politico")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
                             }
                         }
                     }
                 }
             }
-            if tbc.preference > 0.33 && tbc.preference <= 0.66 {
+            if tbc.preference <= 0.8 && tbc.preference > 0.2 {
+                for article in self.abcArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("ABC News")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
                 for article in self.apArticles {
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
@@ -203,21 +466,191 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Associated Press")
                                 urls.append(article["url"] as! String)
-                                let imageURL = URL(string:article["urlToImage"] as! String)!
-                                image_urls.append(imageURL)
-                                images[imageURL] = UIImage(named: "newspaper")!
-                                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                    self.images[imageURL] = img
-//                                    index += 1
-                                    DispatchQueue.main.async {
-                                        self.tableView.reloadData()
-                                    }
-                                })                            }
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.reArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("Reuters")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.ftArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("Financial Times")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
                         }
                     }
                 }
             }
-            if tbc.preference > 0.66 {
+            if tbc.preference <= 1.0 && tbc.preference > 0.4 {
+                for article in self.teArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The Economist")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.cbsArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("CBS News")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.wsjArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The Wall Street Journal")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.hillArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("The Hill")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if tbc.preference > 0.6 {
                 for article in self.foxArticles {
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
@@ -226,22 +659,54 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 headlines.append(article["title"] as! String)
                                 sources.append("Fox News")
                                 urls.append(article["url"] as! String)
-                                let imageURL = URL(string:article["urlToImage"] as! String)!
-                                image_urls.append(imageURL)
-                                images[imageURL] = UIImage(named: "newspaper")!
-                                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                    self.images[imageURL] = img
-//                                    index += 1
-                                    DispatchQueue.main.async {
-                                        self.tableView.reloadData()
-                                    }
-                                })
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
+                            }
+                        }
+                    }
+                }
+                for article in self.nrArticles {
+                    for topic in tbc.selectedTopics {
+                        for word in words[topic]! {
+                            let headline = article["title"]!
+                            if headline.lowercased(with: nil).contains(word) {
+                                headlines.append(article["title"] as! String)
+                                sources.append("National Review")
+                                urls.append(article["url"] as! String)
+                                if !(article["urlToImage"] is NSNull) {
+                                    let imageURL = URL(string:article["urlToImage"] as! String)!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                        self.images[imageURL] = img
+                                        DispatchQueue.main.async {
+                                            self.tableView.reloadData()
+                                        }
+                                    })
+                                } else {
+                                    let imageURL = URL(string:"stanford.edu")!
+                                    image_urls.append(imageURL)
+                                    images[imageURL] = UIImage(named: "newspaper")!
+                                }
                             }
                         }
                     }
                 }
             }
-//            var i = 0
+
             for article in self.topStories {
                 breaking_headlines.append(article["title"] as! String)
                 breaking_urls.append(article["url"] as! String)
@@ -250,7 +715,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                 breaking_images[imageURL] = UIImage(named: "newspaper")!
                 self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
                     self.breaking_images[imageURL] = img
-//                    i += 1
                     DispatchQueue.main.async {
                         self.collectionView.reloadData()
                     }
