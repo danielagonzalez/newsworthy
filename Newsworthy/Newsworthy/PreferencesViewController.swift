@@ -15,6 +15,8 @@ class PreferencesViewController : UIViewController {
         if let tbc = self.tabBarController as? CustomTabController {
             tbc.preference = preferenceSlider.value
             print(tbc.preference)
+            let defaults = UserDefaults.standard
+            defaults.set(tbc.preference, forKey: "Preference")
         }
     }
 }

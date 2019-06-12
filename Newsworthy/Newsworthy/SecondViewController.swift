@@ -213,12 +213,32 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                 self.topStories = articles
             }
         })
+        
+        let defaults = UserDefaults.standard
+        let previous = defaults.float(forKey: "Preference")
+        if previous != 0.0 {
+            if let tbc = self.tabBarController as? CustomTabController {
+                tbc.preference = previous
+                print(tbc.preference)
+            }
+        }
+        
+        if let previous = defaults.object(forKey: "Topics") as? Array<String> {
+            if let tbc = self.tabBarController as? CustomTabController {
+                tbc.selectedTopics = previous
+                print(tbc.selectedTopics)
+                refreshDigest()
+            }
+        } else {
+            print("nothing yet!")
+        }
+        
+        tableView.reloadData()
+        collectionView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tableView.reloadData()
-        collectionView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -255,13 +275,19 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func submitButton(_ sender: Any) {
+        refreshDigest()
+    }
+    
+    func refreshDigest() {
         headlines = [String]()
         sources = [String]()
         images = Dictionary<URL,UIImage>()
+        image_urls = [URL]()
         urls = [String]()
         breaking_headlines = [String]()
         breaking_images = Dictionary<URL,UIImage>()
         breaking_urls = [String]()
+        breaking_image_urls = [URL]()
         if let tbc = self.tabBarController as? CustomTabController {
             print(tbc.selectedTopics)
             if tbc.preference <= 0.4 {
@@ -274,15 +300,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("Buzzfeed")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -301,15 +332,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The Huffington Post")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -330,15 +366,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The New York Times")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -357,15 +398,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The Washington Post")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -384,15 +430,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("Newsweek")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -411,15 +462,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("Politico")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -440,15 +496,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("ABC News")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -467,15 +528,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The Associated Press")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -494,15 +560,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("Reuters")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -521,15 +592,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("Financial Times")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -550,15 +626,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The Economist")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -577,15 +658,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("CBS News")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -604,15 +690,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The Wall Street Journal")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -631,15 +722,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("The Hill")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -660,15 +756,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("Fox News")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -687,15 +788,20 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                                 sources.append("National Review")
                                 urls.append(article["url"] as! String)
                                 if !(article["urlToImage"] is NSNull) {
-                                    let imageURL = URL(string:article["urlToImage"] as! String)!
-                                    image_urls.append(imageURL)
-                                    images[imageURL] = UIImage(named: "newspaper")!
-                                    self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                                        self.images[imageURL] = img
-                                        DispatchQueue.main.async {
-                                            self.tableView.reloadData()
-                                        }
-                                    })
+                                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                                        image_urls.append(imageURL)
+                                        images[imageURL] = UIImage(named: "newspaper")!
+                                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                                            self.images[imageURL] = img
+                                            DispatchQueue.main.async {
+                                                self.tableView.reloadData()
+                                            }
+                                        })
+                                    } else {
+                                        let imageURL = URL(string:"stanford.edu")!
+                                        breaking_image_urls.append(imageURL)
+                                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                                    }
                                 } else {
                                     let imageURL = URL(string:"stanford.edu")!
                                     image_urls.append(imageURL)
@@ -706,24 +812,34 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     }
                 }
             }
-
+            
             for article in self.topStories {
                 breaking_headlines.append(article["title"] as! String)
                 breaking_urls.append(article["url"] as! String)
-                let imageURL = URL(string:article["urlToImage"] as! String)!
-                breaking_image_urls.append(imageURL)
-                breaking_images[imageURL] = UIImage(named: "newspaper")!
-                self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
-                    self.breaking_images[imageURL] = img
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+                if !(article["urlToImage"] is NSNull) {
+                    if let imageURL = URL(string:article["urlToImage"] as! String) {
+                        breaking_image_urls.append(imageURL)
+                        breaking_images[imageURL] = UIImage(named: "newspaper")!
+                        self.loadImage(imageURL: imageURL, imageCompletionHandler: { img, error in
+                            self.breaking_images[imageURL] = img
+                            DispatchQueue.main.async {
+                                self.collectionView.reloadData()
+                            }
+                        })
+                    } else {
+                        let imageURL = URL(string:"stanford.edu")!
+                        breaking_image_urls.append(imageURL)
+                        breaking_images[imageURL] = UIImage(named: "newspaper")!
                     }
-                })
+                } else {
+                    let imageURL = URL(string:"stanford.edu")!
+                    breaking_image_urls.append(imageURL)
+                    breaking_images[imageURL] = UIImage(named: "newspaper")!
+                }
             }
             tableView.reloadData()
             collectionView.reloadData()
         }
-        
     }
     
     func loadData(url: String, dataCompletionHandler: @escaping (Array<Dictionary<String,AnyObject>>?, Error?) -> Void) {

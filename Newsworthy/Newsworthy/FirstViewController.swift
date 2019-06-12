@@ -61,8 +61,6 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         "Terrorism"
     ]
     
-    var buttons = Array(repeating: false, count: 29)
-    
     @IBOutlet weak var tableView: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,29 +89,16 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             } else {
                 cell.button.isSelected = false
             }
+            let defaults = UserDefaults.standard
+            defaults.set(tbc.selectedTopics, forKey: "Topics")
         }
-        
-//        cell.button.isSelected = buttons[indexPath.item]
-        
-//        print(buttons)
         return cell
     }
-    
-//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: IndexPath) {
-//        let cell = cell as! TopicTableViewCell
-//        if buttons[indexPath.item] == true {
-//            cell.button.isSelected = true
-//        } else {
-//            cell.button.isSelected = false
-//        }
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-                
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(_ animated: Bool) {
