@@ -204,7 +204,7 @@
         <scene sceneID="gMb-AN-ESL">
             <objects>
                 <navigationController id="P9b-z1-lZr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Preferences" id="Zrf-b6-psR" userLabel="Preferences"/>
+                    <tabBarItem key="tabBarItem" title="Preferences" image="settings" selectedImage="settings" id="Zrf-b6-psR" userLabel="Preferences"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tVu-MW-0mP">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -282,7 +282,7 @@
         <scene sceneID="wKv-AX-CSZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pQ7-Cc-9e4" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Topics" image="first" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Topics" image="topics" selectedImage="topics" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Joz-Wp-JUf">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -301,7 +301,7 @@
         <scene sceneID="i9r-ic-bjd">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="JrK-uK-H4I" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Digest" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Digest" image="newspaper_icon" selectedImage="newspaper_icon" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZyV-Ix-el3">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -318,10 +318,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="first" width="30" height="30"/>
         <image name="heart_black" width="73" height="78"/>
         <image name="heart_white" width="73" height="78"/>
+        <image name="newspaper_icon" width="25" height="25"/>
         <image name="refresh" width="25" height="25"/>
-        <image name="second" width="30" height="30"/>
+        <image name="settings" width="25" height="25"/>
+        <image name="topics" width="25" height="25"/>
     </resources>
 </document>

@@ -95,119 +95,119 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        let bfURL = "https://newsapi.org/v2/everything?sources=buzzfeed&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let bfURL = "https://newsapi.org/v2/everything?sources=buzzfeed&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: bfURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.abcArticles = articles
             }
         })
         
-        let hpURL = "https://newsapi.org/v2/everything?sources=the-huffington-post&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let hpURL = "https://newsapi.org/v2/everything?sources=the-huffington-post&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: bfURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.hpArticles = articles
             }
         })
         
-        let abcURL = "https://newsapi.org/v2/everything?sources=abc-news&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let abcURL = "https://newsapi.org/v2/everything?sources=abc-news&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: abcURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.abcArticles = articles
             }
         })
         
-        let cbsURL = "https://newsapi.org/v2/everything?sources=cbs-news&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let cbsURL = "https://newsapi.org/v2/everything?sources=cbs-news&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: cbsURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.cbsArticles = articles
             }
         })
         
-        let nytURL = "https://newsapi.org/v2/everything?sources=the-new-york-times&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let nytURL = "https://newsapi.org/v2/everything?sources=the-new-york-times&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: nytURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.nytArticles = articles
             }
         })
         
-        let wpURL = "https://newsapi.org/v2/everything?sources=the-washington-post&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let wpURL = "https://newsapi.org/v2/everything?sources=the-washington-post&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: wpURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.wpArticles = articles
             }
         })
         
-        let nwURL = "https://newsapi.org/v2/everything?sources=newsweek&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let nwURL = "https://newsapi.org/v2/everything?sources=newsweek&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: nwURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.nwArticles = articles
             }
         })
         
-        let poURL = "https://newsapi.org/v2/everything?sources=politico&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let poURL = "https://newsapi.org/v2/everything?sources=politico&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: poURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.poArticles = articles
             }
         })
         
-        let apURL = "https://newsapi.org/v2/everything?sources=associated-press&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let apURL = "https://newsapi.org/v2/everything?sources=associated-press&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: apURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.apArticles = articles
             }
         })
         
-        let teURL = "https://newsapi.org/v2/everything?sources=the-economist&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let teURL = "https://newsapi.org/v2/everything?sources=the-economist&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: teURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.teArticles = articles
             }
         })
         
-        let reURL = "https://newsapi.org/v2/everything?sources=reuters&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let reURL = "https://newsapi.org/v2/everything?sources=reuters&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: reURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.reArticles = articles
             }
         })
         
-        let ftURL = "https://newsapi.org/v2/everything?sources=financial-times&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let ftURL = "https://newsapi.org/v2/everything?sources=financial-times&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: ftURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.ftArticles = articles
             }
         })
         
-        let wsjURL = "https://newsapi.org/v2/everything?sources=the-wall-street-journal&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let wsjURL = "https://newsapi.org/v2/everything?sources=the-wall-street-journal&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: wsjURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.wsjArticles = articles
             }
         })
         
-        let hillURL = "https://newsapi.org/v2/everything?sources=the-hill&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let hillURL = "https://newsapi.org/v2/everything?sources=the-hill&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: hillURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.hillArticles = articles
             }
         })
         
-        let nrURL = "https://newsapi.org/v2/everything?sources=national-review&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let nrURL = "https://newsapi.org/v2/everything?sources=national-review&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: nrURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.nrArticles = articles
             }
         })
         
-        let foxURL = "https://newsapi.org/v2/everything?sources=fox-news&pageSize=100&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let foxURL = "https://newsapi.org/v2/everything?sources=fox-news&pageSize=100&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: foxURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.foxArticles = articles
             }
         })
         
-        let topStoriesURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=5694075ebf3948a7b12095c01d95c2f4"
+        let topStoriesURL = "https://newsapi.org/v2/top-headlines?country=us&pageSize=10&apiKey=ae68ec6ff339405d9c2f7843ab786cbf"
         loadData(url: topStoriesURL, dataCompletionHandler: { articles, error in
             if let articles = articles {
                 self.topStories = articles
@@ -219,18 +219,13 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         if previous != 0.0 {
             if let tbc = self.tabBarController as? CustomTabController {
                 tbc.preference = previous
-                print(tbc.preference)
             }
         }
         
         if let previous = defaults.object(forKey: "Topics") as? Array<String> {
             if let tbc = self.tabBarController as? CustomTabController {
                 tbc.selectedTopics = previous
-                print(tbc.selectedTopics)
-                refreshDigest()
             }
-        } else {
-            print("nothing yet!")
         }
         
         tableView.reloadData()
@@ -289,7 +284,6 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         breaking_urls = [String]()
         breaking_image_urls = [URL]()
         if let tbc = self.tabBarController as? CustomTabController {
-            print(tbc.selectedTopics)
             if tbc.preference <= 0.4 {
                 for article in self.bfArticles {
                     for topic in tbc.selectedTopics {
@@ -869,14 +863,12 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         let downloadTask = session.dataTask(with: imageURL, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             if let res = response as? HTTPURLResponse {
                 if let imageData = data {
-                    print("Downloaded image with response code \(res.statusCode)")
                     let image = UIImage(data: imageData)!
                     imageCompletionHandler(image, nil)
                 } else {
                     imageCompletionHandler(UIImage(named: "newspaper")!, nil)
                 }
             } else {
-                print("Couldn't get response code")
                 imageCompletionHandler(UIImage(named: "newspaper")!, nil)
             }
         })

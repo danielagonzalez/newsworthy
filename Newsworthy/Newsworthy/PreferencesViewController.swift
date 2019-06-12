@@ -19,4 +19,13 @@ class PreferencesViewController : UIViewController {
             defaults.set(tbc.preference, forKey: "Preference")
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let defaults = UserDefaults.standard
+        let previous = defaults.float(forKey: "Preference")
+        if previous != 0.0 {
+            preferenceSlider.value = previous
+        }
+    }
 }
