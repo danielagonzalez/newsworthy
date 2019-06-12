@@ -289,7 +289,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("Buzzfeed")
                                 urls.append(article["url"] as! String)
@@ -321,7 +321,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Huffington Post")
                                 urls.append(article["url"] as! String)
@@ -355,7 +355,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The New York Times")
                                 urls.append(article["url"] as! String)
@@ -387,7 +387,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Washington Post")
                                 urls.append(article["url"] as! String)
@@ -419,7 +419,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("Newsweek")
                                 urls.append(article["url"] as! String)
@@ -451,7 +451,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("Politico")
                                 urls.append(article["url"] as! String)
@@ -485,7 +485,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("ABC News")
                                 urls.append(article["url"] as! String)
@@ -517,7 +517,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Associated Press")
                                 urls.append(article["url"] as! String)
@@ -549,7 +549,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("Reuters")
                                 urls.append(article["url"] as! String)
@@ -581,7 +581,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("Financial Times")
                                 urls.append(article["url"] as! String)
@@ -615,7 +615,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Economist")
                                 urls.append(article["url"] as! String)
@@ -647,7 +647,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("CBS News")
                                 urls.append(article["url"] as! String)
@@ -679,7 +679,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Wall Street Journal")
                                 urls.append(article["url"] as! String)
@@ -711,7 +711,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("The Hill")
                                 urls.append(article["url"] as! String)
@@ -745,7 +745,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("Fox News")
                                 urls.append(article["url"] as! String)
@@ -777,7 +777,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
                     for topic in tbc.selectedTopics {
                         for word in words[topic]! {
                             let headline = article["title"]!
-                            if headline.lowercased(with: nil).contains(word) {
+                            if headline.lowercased(with: nil).contains(word) && !(headlines.contains(article["title"] as! String)) {
                                 headlines.append(article["title"] as! String)
                                 sources.append("National Review")
                                 urls.append(article["url"] as! String)
